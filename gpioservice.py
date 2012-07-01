@@ -20,7 +20,10 @@ from subprocess import call
 HIGH = 'high'
 LOW = 'low'
 FLASH = 'flash'
-modes = [LOW,HIGH,FLASH]
+LOWSHOT = 'lowshot'
+HIGHSHOT = 'highshot'
+
+modes = [LOW,HIGH,FLASH,LOWSHOT,HIGHSHOT]
 flash_state = HIGH
 
 gpo_lock = threading.Lock()
@@ -62,6 +65,12 @@ class Gpo():
         if (self.mode != self.state):
             if (self.mode == FLASH):
                 self.switch(flash_state)
+            elif (self.mode == LOWSHOT):
+                self.switch(LOW)
+                self.mode = HIGH
+            elif (self.mode == HIGHSHOT):
+                self.switch(HIGH)
+                self.mode = LOW
             else:
                 self.switch(self.mode)
                 
