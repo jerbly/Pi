@@ -110,7 +110,7 @@ def write_twitter():
         statuses = twitter_api.GetUserTimeline('Raspberry_Pi')
         twitter_out = BLOCK
         for s in statuses:
-            twitter_out+=s.text.encode('ascii')+BLOCK
+            twitter_out+=s.text.encode('ascii','ignore')+BLOCK
         display.ser.write(twitter_out[:256])
     except:
         display.ser.write('twitter failed'.ljust(256))
